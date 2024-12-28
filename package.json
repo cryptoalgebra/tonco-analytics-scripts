@@ -1,0 +1,26 @@
+{
+    "devDependencies": {
+        "@types/node": "^22.10.2",
+        "nodemon": "^3.1.7",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.7.2"
+    },
+    "scripts": {
+        "build": "tsc",
+        "dev": "ts-node -r dotenv/config src/index",
+        "start": "node ./build/index",
+        "nodemon": "nodemon src/index",
+        "codegen": "graphql-codegen --config codegen.ts "
+    },
+    "dependencies": {
+        "@apollo/client": "^3.12.4",
+        "@graphql-codegen/cli": "^5.0.3",
+        "@orbs-network/ton-access": "^2.3.3",
+        "@swc/core": "^1.5.25",
+        "@ton/ton": "^15.1.0",
+        "@toncodex/sdk": "^1.0.31",
+        "dotenv": "^16.4.7",
+        "fs": "^0.0.1-security",
+        "graphql": "^16.9.0"
+    }
+}

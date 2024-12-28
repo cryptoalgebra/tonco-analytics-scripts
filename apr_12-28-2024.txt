@@ -1,0 +1,126 @@
+12/28/2024, 14:00
+Total positions: 4564
+Active positions: 1421
+Newly positions (created in the last 7 days): 275
+
+--------------------------------------------------------------
+
+Processed positions (liquidity > $100 and fees > $0): 334
+Top 5 positions by APR:
+#1:
+  Pool: TON / USD₮
+  Position ID: 2494
+  APR: 307.01%
+  Liquidity (USD): 4928.07
+  Earned Fees (USD): 137.36
+  Collected Fees (USD): 0.00
+  Range: [5.7088] - [5.9181]
+  Active in: 3 days 8 hours
+  Created at: 12/25/2024, 6:12:38 AM
+  Owner: UQAd2sOj7wLIKJPJB-7lE4oTMksPsLmnNSprljVKg6SB5HSA
+#2:
+  Pool: TON / USD₮
+  Position ID: 2519
+  APR: 274.19%
+  Liquidity (USD): 4759.20
+  Earned Fees (USD): 106.87
+  Collected Fees (USD): 0.00
+  Range: [5.6407] - [5.9895]
+  Active in: 3 days 24 hours
+  Created at: 12/25/2024, 1:59:55 PM
+  Owner: UQAd2sOj7wLIKJPJB-7lE4oTMksPsLmnNSprljVKg6SB5HSA
+#3:
+  Pool: TON / FWT
+  Position ID: 16
+  APR: 248.22%
+  Liquidity (USD): 941.99
+  Earned Fees (USD): 7.17
+  Collected Fees (USD): 0.00
+  Range: [103.5203] - [502.5469]
+  Active in: 1 days 3 hours
+  Created at: 12/27/2024, 10:54:13 AM
+  Owner: UQAooUlL1wa3vVj-lUus6m3RerSsSHi1Tx7GZI_eEv08q-Ch
+#4:
+  Pool: TON / APHBT
+  Position ID: 0
+  APR: 213.39%
+  Liquidity (USD): 10204.79
+  Earned Fees (USD): 153.17
+  Collected Fees (USD): 0.00
+  Range: [83.0779] - [812.1337]
+  Active in: 3 days 14 hours
+  Created at: 12/26/2024, 12:08:01 AM
+  Owner: UQAZJysZm4hE4vplBQK8Oe2PLdExC7ax6E1HnhQEK7bQ_6hA
+#5:
+  Pool: TON / USD₮
+  Position ID: 2469
+  APR: 171.64%
+  Liquidity (USD): 512.93
+  Earned Fees (USD): 9.11
+  Collected Fees (USD): 0.00
+  Range: [5.4740] - [6.0256]
+  Active in: 4 days 19 hours
+  Created at: 12/24/2024, 7:08:06 PM
+  Owner: UQCHN7HONXu2rbGmEBOQgGgGp1jDhMu6w3GTnvYHQNwN36qi
+
+--------------------------------------------------------------
+
+Processed positions (liquidity > $100 and fees > $0): 333
+Top 5 pools by position APR:
+#1:
+  Pool: TON / USD₮
+  Position ID: 2494
+  APR: 307.14%
+  Liquidity (USD): 4931.15
+  Earned Fees (USD): 137.93
+  Collected Fees (USD): 0.00
+  Range: [5.7088] - [5.9181]
+  Active in: 3 days 8 hours
+  Created at: 12/25/2024, 6:12:38 AM
+  Owner: UQAd2sOj7wLIKJPJB-7lE4oTMksPsLmnNSprljVKg6SB5HSA
+#2:
+  Pool: TON / FWT
+  Position ID: 16
+  APR: 245.98%
+  Liquidity (USD): 942.13
+  Earned Fees (USD): 7.17
+  Collected Fees (USD): 0.00
+  Range: [103.5203] - [502.5469]
+  Active in: 1 days 3 hours
+  Created at: 12/27/2024, 10:54:13 AM
+  Owner: UQAooUlL1wa3vVj-lUus6m3RerSsSHi1Tx7GZI_eEv08q-Ch
+#3:
+  Pool: TON / APHBT
+  Position ID: 0
+  APR: 212.56%
+  Liquidity (USD): 10207.36
+  Earned Fees (USD): 153.23
+  Collected Fees (USD): 0.00
+  Range: [83.0779] - [812.1337]
+  Active in: 3 days 14 hours
+  Created at: 12/26/2024, 12:08:01 AM
+  Owner: UQAZJysZm4hE4vplBQK8Oe2PLdExC7ax6E1HnhQEK7bQ_6hA
+#4:
+  Pool: TON / HPO
+  Position ID: 9
+  APR: 107.43%
+  Liquidity (USD): 184.22
+  Earned Fees (USD): 0.66
+  Collected Fees (USD): 0.00
+  Range: [242.1907] - [273.0676]
+  Active in: 1 days 5 hours
+  Created at: 12/27/2024, 8:59:24 AM
+  Owner: UQB6WPdeT7-pyT73RVaAuCyEaYpfPmb9To80YuEB_EHppIUX
+#5:
+  Pool: USD₮ / FWT
+  Position ID: 14
+  APR: 49.99%
+  Liquidity (USD): 6415.78
+  Earned Fees (USD): 7.48
+  Collected Fees (USD): 0.00
+  Range: [38.5407] - [52.0238]
+  Active in: 20 hours
+  Created at: 12/27/2024, 5:34:29 PM
+  Owner: UQAZJysZm4hE4vplBQK8Oe2PLdExC7ax6E1HnhQEK7bQ_6hA
+
+-----------------------------------------------------------------
