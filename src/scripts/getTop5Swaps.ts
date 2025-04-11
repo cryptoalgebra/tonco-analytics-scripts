@@ -40,7 +40,7 @@ export async function getTop5Swaps() {
                 };
             }) || [];
 
-        const top5Swaps = _swaps.sort((a, b) => (b?.amount0Usd || 0) - (a?.amount0Usd || 0)).slice(0, 10);
+        const top5Swaps = _swaps.sort((a, b) => (b?.amount0Usd || 0) - (a?.amount0Usd || 0)).slice(0, 5);
 
         top5Swaps.forEach((swap, index) => {
             const swapName = swap?.zeroToOne
