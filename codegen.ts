@@ -9,12 +9,6 @@ const config: CodegenConfig = {
             documents: "src/graphql/queries/tonco/*.ts",
             plugins: ["typescript", "typescript-operations"],
         },
-        // Dedust API
-        "src/graphql/generated/dedust.ts": {
-            schema: "https://api.dedust.io/v3/graphql",
-            documents: "src/graphql/queries/dedust/*.ts",
-            plugins: ["typescript", "typescript-operations"],
-        },
     },
 };
 

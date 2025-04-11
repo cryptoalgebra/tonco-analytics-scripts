@@ -21,12 +21,20 @@ export type Burn = {
   amount0: Scalars['String']['output'];
   /** Burn Jetton 1 amount */
   amount1: Scalars['String']['output'];
+  /** Transaction block */
+  block?: Maybe<Scalars['Int']['output']>;
+  /** Transaction block time */
+  blockTime?: Maybe<Scalars['Int']['output']>;
   /** Var needed for fee computation */
   feeGrowthInside0LastX128: Scalars['String']['output'];
   /** Var needed for fee computation */
   feeGrowthInside1LastX128: Scalars['String']['output'];
   /** Transaction hash */
   hash: Scalars['String']['output'];
+  /** Jetton 0 */
+  jetton0: Jetton;
+  /** Jetton 1 */
+  jetton1: Jetton;
   /** Position current liquidity */
   liquidity: Scalars['String']['output'];
   /** Position liquidity to burn */
@@ -37,6 +45,12 @@ export type Burn = {
   positionId: Scalars['Int']['output'];
   /** Burn jettons recipient */
   recipient: Scalars['String']['output'];
+  /** Pool reserve0 after burn */
+  reserve0?: Maybe<Scalars['String']['output']>;
+  /** Pool reserve1 after burn */
+  reserve1?: Maybe<Scalars['String']['output']>;
+  /** Transaction seqno in poon */
+  seqno?: Maybe<Scalars['Int']['output']>;
   /** Position tick lower */
   tickLower: Scalars['Int']['output'];
   /** Position tick upper */
@@ -50,12 +64,20 @@ export type BurnWhere = {
   amount0?: InputMaybe<Scalars['String']['input']>;
   /** Burn Jetton 1 amount */
   amount1?: InputMaybe<Scalars['String']['input']>;
+  /** Transaction block data */
+  block?: InputMaybe<Comparisons>;
   /** Var needed for fee computation */
   feeGrowthInside0LastX128?: InputMaybe<Scalars['String']['input']>;
   /** Var needed for fee computation */
   feeGrowthInside1LastX128?: InputMaybe<Scalars['String']['input']>;
+  /** Has Jetton 0 OR Jetton 1 */
+  hasJetton?: InputMaybe<Scalars['String']['input']>;
   /** Transaction hash */
   hash?: InputMaybe<Scalars['String']['input']>;
+  /** Jetton 0 address */
+  jetton0?: InputMaybe<Scalars['String']['input']>;
+  /** Jetton 1 address */
+  jetton1?: InputMaybe<Scalars['String']['input']>;
   /** Position current liquidity */
   liquidity?: InputMaybe<Scalars['String']['input']>;
   /** Position liquidity to burn */
@@ -71,7 +93,7 @@ export type BurnWhere = {
   /** Position tick upper */
   tickUpper?: InputMaybe<Scalars['Int']['input']>;
   /** Transaction unix time */
-  time?: InputMaybe<Scalars['Date']['input']>;
+  time?: InputMaybe<Comparisons>;
 };
 
 export type Collect = {
@@ -86,6 +108,10 @@ export type Collect = {
   feeGrowthInside1LastX128: Scalars['String']['output'];
   /** Transaction hash */
   hash: Scalars['String']['output'];
+  /** Jetton 0 */
+  jetton0: Jetton;
+  /** Jetton 1 */
+  jetton1: Jetton;
   /** Collect pool entity */
   pool: Pool;
   /** Position ID */
@@ -101,12 +127,20 @@ export type CollectWhere = {
   amount0?: InputMaybe<Scalars['String']['input']>;
   /** Collect Jetton 1 amount */
   amount1?: InputMaybe<Scalars['String']['input']>;
+  /** Transaction block data */
+  block?: InputMaybe<Comparisons>;
   /** Var needed for fee computation */
   feeGrowthInside0LastX128?: InputMaybe<Scalars['String']['input']>;
   /** Var needed for fee computation */
   feeGrowthInside1LastX128?: InputMaybe<Scalars['String']['input']>;
+  /** Has Jetton 0 OR Jetton 1 */
+  hasJetton?: InputMaybe<Scalars['String']['input']>;
   /** Transaction hash */
   hash?: InputMaybe<Scalars['String']['input']>;
+  /** Jetton 0 address */
+  jetton0?: InputMaybe<Scalars['String']['input']>;
+  /** Jetton 1 address */
+  jetton1?: InputMaybe<Scalars['String']['input']>;
   /** Collect pool address */
   pool?: InputMaybe<Scalars['String']['input']>;
   /** Position ID */
@@ -114,7 +148,7 @@ export type CollectWhere = {
   /** Collect jettons recipient */
   recipient?: InputMaybe<Scalars['String']['input']>;
   /** Transaction unix time */
-  time?: InputMaybe<Scalars['Date']['input']>;
+  time?: InputMaybe<Comparisons>;
 };
 
 export type Comparisons = {
@@ -123,6 +157,7 @@ export type Comparisons = {
   gte?: InputMaybe<Scalars['String']['input']>;
   lt?: InputMaybe<Scalars['String']['input']>;
   lte?: InputMaybe<Scalars['String']['input']>;
+  not?: InputMaybe<Scalars['String']['input']>;
 };
 
 export type ComparisonsInt = {
@@ -131,6 +166,7 @@ export type ComparisonsInt = {
   gte?: InputMaybe<Scalars['Int']['input']>;
   lt?: InputMaybe<Scalars['Int']['input']>;
   lte?: InputMaybe<Scalars['Int']['input']>;
+  not?: InputMaybe<Scalars['Int']['input']>;
 };
 
 export type DexData = {
@@ -352,9 +388,8 @@ export type JettonWhere = {
 
 export type Meta = {
   __typename?: 'Meta';
-  initTime: Scalars['Date']['output'];
-  lastPoolsUpdateTime: Scalars['Date']['output'];
-  lastPriceUpdateTime: Scalars['Date']['output'];
+  lastBlock?: Maybe<Scalars['Int']['output']>;
+  lastBlockTimestamp?: Maybe<Scalars['Int']['output']>;
 };
 
 export type Mint = {
@@ -363,18 +398,38 @@ export type Mint = {
   amount0: Scalars['String']['output'];
   /** Mint Jetton 1 amount */
   amount1: Scalars['String']['output'];
+  /** Mint amount in USD */
+  amountUsd: Scalars['String']['output'];
+  /** Transaction block */
+  block?: Maybe<Scalars['Int']['output']>;
+  /** Transaction block time */
+  blockTime?: Maybe<Scalars['Int']['output']>;
   /** Var needed for fee computation */
   feeGrowthInside0X128: Scalars['String']['output'];
   /** Var needed for fee computation */
   feeGrowthInside1X128: Scalars['String']['output'];
   /** Transaction hash */
   hash: Scalars['String']['output'];
+  /** Jetton 0 */
+  jetton0: Jetton;
+  /** Jetton 1 */
+  jetton1: Jetton;
   /** Position liquidity */
   liquidity: Scalars['String']['output'];
+  /** NFT ID. Could be null */
+  mint_index?: Maybe<Scalars['Int']['output']>;
   /** Mint pool entity */
   pool: Pool;
   /** NFT position recipient */
   recipient: Scalars['String']['output'];
+  /** Referral address */
+  referral?: Maybe<Scalars['String']['output']>;
+  /** Pool reserve0 after mint */
+  reserve0?: Maybe<Scalars['String']['output']>;
+  /** Pool reserve1 after mint */
+  reserve1?: Maybe<Scalars['String']['output']>;
+  /** Transaction seqno in poon */
+  seqno?: Maybe<Scalars['Int']['output']>;
   /** Position tick lower */
   tickLower: Scalars['Int']['output'];
   /** Position tick upper */
@@ -388,24 +443,36 @@ export type MintWhere = {
   amount0?: InputMaybe<Scalars['String']['input']>;
   /** Mint Jetton 1 amount */
   amount1?: InputMaybe<Scalars['String']['input']>;
+  /** Transaction block data */
+  block?: InputMaybe<Comparisons>;
   /** Var needed for fee computation */
   feeGrowthInside0X128?: InputMaybe<Scalars['String']['input']>;
   /** Var needed for fee computation */
   feeGrowthInside1X128?: InputMaybe<Scalars['String']['input']>;
+  /** Has Jetton 0 OR Jetton 1 */
+  hasJetton?: InputMaybe<Scalars['String']['input']>;
   /** Transaction hash */
   hash?: InputMaybe<Scalars['String']['input']>;
+  /** Jetton 0 address */
+  jetton0?: InputMaybe<Scalars['String']['input']>;
+  /** Jetton 1 address */
+  jetton1?: InputMaybe<Scalars['String']['input']>;
   /** Position liquidity */
   liquidity?: InputMaybe<Scalars['String']['input']>;
+  /** NFT ID. Could be null */
+  mint_index?: InputMaybe<Scalars['Int']['input']>;
   /** Mint pool address */
   pool?: InputMaybe<Scalars['String']['input']>;
   /** NFT position recipient */
   recipient?: InputMaybe<Scalars['String']['input']>;
+  /** Referral */
+  referral?: InputMaybe<Scalars['String']['input']>;
   /** Position tick lower */
   tickLower?: InputMaybe<Scalars['Int']['input']>;
   /** Position tick upper */
   tickUpper?: InputMaybe<Scalars['Int']['input']>;
   /** Transaction unix time */
-  time?: InputMaybe<Scalars['Date']['input']>;
+  time?: InputMaybe<Comparisons>;
 };
 
 export enum OrderDirection {
@@ -427,6 +494,12 @@ export type Pool = {
   collectedFeesJetton1: Scalars['Float']['output'];
   /** All time collected fees in USD */
   collectedFeesUsd: Scalars['Float']['output'];
+  /** Pool creation block */
+  creationBlock?: Maybe<Scalars['Int']['output']>;
+  /** Pool creation block time */
+  creationBlockTime?: Maybe<Scalars['Int']['output']>;
+  /** Pool creation hash */
+  creationHash: Scalars['String']['output'];
   /** Pool creation unix */
   creationUnix: Scalars['Int']['output'];
   /** Fee amount, where 1 = 0.001% */
@@ -791,6 +864,8 @@ export type PositionWhere = {
   jetton0?: InputMaybe<Scalars['String']['input']>;
   /** Position Jetton 1 address */
   jetton1?: InputMaybe<Scalars['String']['input']>;
+  /** Liquidity gt, gte, lt, lte, equal, not filter */
+  liquidity?: InputMaybe<Comparisons>;
   /** Was position migrated from Stonfi or Dedust or no */
   migratedFrom?: InputMaybe<Scalars['Boolean']['input']>;
   /** NFT address in blockchain */
@@ -801,9 +876,9 @@ export type PositionWhere = {
   owner?: InputMaybe<Scalars['String']['input']>;
   /** Position pool address */
   pool?: InputMaybe<Scalars['String']['input']>;
-  /** Lower tick gt, gte, lt, lte, eqial filter */
+  /** Lower tick gt, gte, lt, lte, equal filter */
   tickLower?: InputMaybe<ComparisonsInt>;
-  /** Upper tick gt, gte, lt, lte, eqial filter */
+  /** Upper tick gt, gte, lt, lte, equal filter */
   tickUpper?: InputMaybe<ComparisonsInt>;
 };
 
@@ -914,18 +989,36 @@ export type Swap = {
   __typename?: 'Swap';
   /** Swap input amount */
   amount: Scalars['Float']['output'];
+  /** Transaction block */
+  block?: Maybe<Scalars['Int']['output']>;
+  /** Transaction block time */
+  blockTime?: Maybe<Scalars['Int']['output']>;
   /** Swap sender address */
   from: Scalars['String']['output'];
   /** Transaction hash */
   hash: Scalars['String']['output'];
+  /** Is multihop errored */
+  isMultihopErrored?: Maybe<Scalars['Boolean']['output']>;
+  /** Is multihop finished */
+  isMultihopFinished?: Maybe<Scalars['Boolean']['output']>;
   /** Is swap being Jetton 0 to Jetton 1 or Jetton 1 to Jetton 0 */
   isZeroToOne: Scalars['Boolean']['output'];
   /** Jetton 0 entity */
   jetton0: Jetton;
   /** Jetton 1 entity */
   jetton1: Jetton;
+  /** Multihop path */
+  multihop?: Maybe<Scalars['String']['output']>;
   /** Swap pool entity */
   pool: Pool;
+  /** Referral code */
+  referral?: Maybe<Scalars['String']['output']>;
+  /** Pool reserve0 after swap */
+  reserve0?: Maybe<Scalars['String']['output']>;
+  /** Pool reserve1 after swap */
+  reserve1?: Maybe<Scalars['String']['output']>;
+  /** Transaction seqno in poon */
+  seqno?: Maybe<Scalars['Int']['output']>;
   /** Swap price value */
   sqrtPriceLimitX96: Scalars['String']['output'];
   /** Transaction unix time */
@@ -941,16 +1034,28 @@ export type Swap = {
 export type SwapWhere = {
   /** Swap input amount */
   amount?: InputMaybe<Scalars['Int']['input']>;
+  /** Transaction block data */
+  block?: InputMaybe<Comparisons>;
   /** Swap sender address */
   from?: InputMaybe<Scalars['String']['input']>;
+  /** Has Jetton 0 OR Jetton 1 */
+  hasJetton?: InputMaybe<Scalars['String']['input']>;
   /** Transaction hash */
   hash?: InputMaybe<Scalars['String']['input']>;
+  /** Is multihop errored */
+  isMultihopErrored?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Is multihop finished */
+  isMultihopFinished?: InputMaybe<Scalars['Boolean']['input']>;
   /** Jetton 0 address */
   jetton0?: InputMaybe<Scalars['String']['input']>;
   /** Jetton 1 address */
   jetton1?: InputMaybe<Scalars['String']['input']>;
+  /** Multihop path */
+  multihop?: InputMaybe<Scalars['String']['input']>;
   /** Swap pool address */
   pool?: InputMaybe<Scalars['String']['input']>;
+  /** Referral code */
+  referral?: InputMaybe<Scalars['String']['input']>;
   /** Swap price value */
   sqrtPriceLimitX96?: InputMaybe<Scalars['String']['input']>;
   /** Transaction unix time */
@@ -1071,7 +1176,7 @@ export type GetPoolDataQueryVariables = Exact<{
 
 export type GetPoolDataQuery = { __typename?: 'Query', poolData?: Array<{ __typename?: 'PoolData', unix: any, poolInfo: string, fee: number, liquidity: string, tick: number, tickSpacing: number, priceSqrt: string, feeGrowthGlobal0X128: string, feeGrowthGlobal1X128: string, jetton0Price: number, jetton1Price: number, volumeJetton0: number, volumeJetton1: number, volumeUsd: number, feesUsd: number, txCount: number, collectedFeesJetton0: number, collectedFeesJetton1: number, collectedFeesUsd: number, totalValueLockedJetton0: number, totalValueLockedJetton1: number, totalValueLockedUsd: number, totalValueLockedTon: number, apr: number } | null> | null };
 
-export type PositionFieldsFragment = { __typename?: 'Position', id: string, owner: string, pool: string, tickLower: number, tickUpper: number, liquidity: string, nftAddress: string, nftImage: string, feeGrowthInside0LastX128: string, feeGrowthInside1LastX128: string, migratedFrom?: string | null, depositedJetton0: string, depositedJetton1: string, jetton0: { __typename?: 'Jetton', address: string, symbol: string, name: string, decimals: number, image: string, description: string, derivedTon: number, derivedUsd: number, feesUsd: number, totalSupply: number, totalValueLocked: number, totalValueLockedUsd: number, txCount: number, volume: number, volumeUsd: number }, jetton1: { __typename?: 'Jetton', address: string, symbol: string, name: string, decimals: number, image: string, description: string, derivedTon: number, derivedUsd: number, feesUsd: number, totalSupply: number, totalValueLocked: number, totalValueLockedUsd: number, txCount: number, volume: number, volumeUsd: number } };
+export type PositionFieldsFragment = { __typename?: 'Position', id: string, owner: string, pool: string, tickLower: number, tickUpper: number, liquidity: string, nftAddress: string, nftImage: string, feeGrowthInside0LastX128: string, feeGrowthInside1LastX128: string, migratedFrom?: string | null, depositedJetton0: string, depositedJetton1: string, withdrawnJetton0: string, withdrawnJetton1: string, jetton0: { __typename?: 'Jetton', address: string, symbol: string, name: string, decimals: number, image: string, description: string, derivedTon: number, derivedUsd: number, feesUsd: number, totalSupply: number, totalValueLocked: number, totalValueLockedUsd: number, txCount: number, volume: number, volumeUsd: number }, jetton1: { __typename?: 'Jetton', address: string, symbol: string, name: string, decimals: number, image: string, description: string, derivedTon: number, derivedUsd: number, feesUsd: number, totalSupply: number, totalValueLocked: number, totalValueLockedUsd: number, txCount: number, volume: number, volumeUsd: number } };
 
 export type AllPositionsQueryVariables = Exact<{
   owner?: InputMaybe<Scalars['String']['input']>;
@@ -1080,24 +1185,27 @@ export type AllPositionsQueryVariables = Exact<{
 }>;
 
 
-export type AllPositionsQuery = { __typename?: 'Query', positions?: Array<{ __typename?: 'Position', id: string, amount0: string, amount1: string, owner: string, pool: string, tickLower: number, tickUpper: number, liquidity: string, nftAddress: string, nftImage: string, feeGrowthInside0LastX128: string, feeGrowthInside1LastX128: string, migratedFrom?: string | null, depositedJetton0: string, depositedJetton1: string, creationTime: any, collectedFeesJetton0: string, collectedFeesJetton1: string, jetton0: { __typename?: 'Jetton', address: string, symbol: string, name: string, decimals: number, image: string, description: string, derivedTon: number, derivedUsd: number, feesUsd: number, totalSupply: number, totalValueLocked: number, totalValueLockedUsd: number, txCount: number, volume: number, volumeUsd: number }, jetton1: { __typename?: 'Jetton', address: string, symbol: string, name: string, decimals: number, image: string, description: string, derivedTon: number, derivedUsd: number, feesUsd: number, totalSupply: number, totalValueLocked: number, totalValueLockedUsd: number, txCount: number, volume: number, volumeUsd: number } } | null> | null };
+export type AllPositionsQuery = { __typename?: 'Query', positions?: Array<{ __typename?: 'Position', id: string, amount0: string, amount1: string, owner: string, pool: string, tickLower: number, tickUpper: number, liquidity: string, nftAddress: string, nftImage: string, feeGrowthInside0LastX128: string, feeGrowthInside1LastX128: string, migratedFrom?: string | null, depositedJetton0: string, depositedJetton1: string, creationTime: any, collectedFeesJetton0: string, collectedFeesJetton1: string, withdrawnJetton0: string, withdrawnJetton1: string, jetton0: { __typename?: 'Jetton', address: string, symbol: string, name: string, decimals: number, image: string, description: string, derivedTon: number, derivedUsd: number, feesUsd: number, totalSupply: number, totalValueLocked: number, totalValueLockedUsd: number, txCount: number, volume: number, volumeUsd: number }, jetton1: { __typename?: 'Jetton', address: string, symbol: string, name: string, decimals: number, image: string, description: string, derivedTon: number, derivedUsd: number, feesUsd: number, totalSupply: number, totalValueLocked: number, totalValueLockedUsd: number, txCount: number, volume: number, volumeUsd: number } } | null> | null };
 
 export type GetMintsQueryVariables = Exact<{
   where?: InputMaybe<MintWhere>;
+  filter?: InputMaybe<Filter>;
 }>;
 
 
-export type GetMintsQuery = { __typename?: 'Query', mints?: Array<{ __typename?: 'Mint', hash: string, time: any, feeGrowthInside0X128: string, feeGrowthInside1X128: string, amount0: string, amount1: string, liquidity: string, tickLower: number, tickUpper: number, wallet: string, pool: { __typename?: 'Pool', address: string, jetton0: { __typename?: 'Jetton', address: string, symbol: string, decimals: number }, jetton1: { __typename?: 'Jetton', address: string, symbol: string, decimals: number } } } | null> | null };
+export type GetMintsQuery = { __typename?: 'Query', mints?: Array<{ __typename?: 'Mint', hash: string, time: any, feeGrowthInside0X128: string, feeGrowthInside1X128: string, amount0: string, amount1: string, liquidity: string, tickLower: number, tickUpper: number, amountUsd: string, wallet: string, pool: { __typename?: 'Pool', address: string, jetton0: { __typename?: 'Jetton', address: string, symbol: string, decimals: number }, jetton1: { __typename?: 'Jetton', address: string, symbol: string, decimals: number } } } | null> | null };
 
 export type GetSwapsQueryVariables = Exact<{
   where?: InputMaybe<SwapWhere>;
+  filter?: InputMaybe<Filter>;
 }>;
 
 
-export type GetSwapsQuery = { __typename?: 'Query', swaps?: Array<{ __typename?: 'Swap', toRefund1: string, toRefund0: string, to: string, time: any, sqrtPriceLimitX96: string, hash: string, amount: number, wallet: string, pool: { __typename?: 'Pool', address: string, jetton0: { __typename?: 'Jetton', address: string, symbol: string, decimals: number }, jetton1: { __typename?: 'Jetton', address: string, symbol: string, decimals: number } } } | null> | null };
+export type GetSwapsQuery = { __typename?: 'Query', swaps?: Array<{ __typename?: 'Swap', toRefund1: string, toRefund0: string, to: string, time: any, sqrtPriceLimitX96: string, hash: string, amount: number, wallet: string, pool: { __typename?: 'Pool', address: string, jetton0: { __typename?: 'Jetton', address: string, symbol: string, decimals: number, derivedUsd: number }, jetton1: { __typename?: 'Jetton', address: string, symbol: string, decimals: number, derivedUsd: number } } } | null> | null };
 
 export type GetBurnsQueryVariables = Exact<{
   where?: InputMaybe<BurnWhere>;
+  filter?: InputMaybe<Filter>;
 }>;
 
 
@@ -1105,6 +1213,7 @@ export type GetBurnsQuery = { __typename?: 'Query', burns?: Array<{ __typename?:
 
 export type GetCollectsQueryVariables = Exact<{
   where?: InputMaybe<CollectWhere>;
+  filter?: InputMaybe<Filter>;
 }>;
 
 

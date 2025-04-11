@@ -1,7 +1,6 @@
 import { PoolV3Contract } from "@toncodex/sdk";
-import { getTonClient } from "../service/tonClient";
+import { getTonClient } from "../../service/tonClient";
 import { Address } from "@ton/ton";
-import { AllPositionsQuery, Position } from "../graphql/generated/tonco";
 
 export async function getCollectedFees(poolAddress: string, position: any) {
     const client = await getTonClient();

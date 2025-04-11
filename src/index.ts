@@ -1,5 +1,3 @@
-import { getTop5APRByPool } from "./scripts/getTop5APRByPool";
-import { getTop5APRByPosition } from "./scripts/getTop5APRByPosition";
+import { getTopPositions } from "./scripts/getTopPositions";
 
-// getTop5APRByPosition(false);
-getTop5APRByPool(true);
+getTopPositions(30, "roi");

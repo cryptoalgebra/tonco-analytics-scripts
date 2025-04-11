@@ -21,6 +21,8 @@ export const POSITION_FRAGMENT = gql`
         migratedFrom
         depositedJetton0
         depositedJetton1
+        withdrawnJetton0
+        withdrawnJetton1
     }
 `;
 
@@ -79,6 +81,8 @@ export const ALL_POSITIONS = gql`
             creationTime
             collectedFeesJetton0
             collectedFeesJetton1
+            withdrawnJetton0
+            withdrawnJetton1
         }
     }
 `;

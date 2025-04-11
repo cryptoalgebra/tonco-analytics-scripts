@@ -1,20 +1,27 @@
 import { infoClient } from "../graphql/clients";
-import { AllPositionsQuery } from "../graphql/generated/tonco";
+import { AllPositionsQuery, GetMintsQuery } from "../graphql/generated/tonco";
 import { ALL_POSITIONS } from "../graphql/queries/tonco/positions";
-import { getCollectedFees } from "../position/getCollectedFees";
+import { MINT_TRANSACTIONS } from "../graphql/queries/tonco/transactions";
+import { getCollectedFees } from "./common/getCollectedFees";
+import { formatAmount } from "../utils/formatAmount";
 import { formatUnits } from "../utils/formatUnits";
 import { isDefined } from "../utils/isDefined";
 import { Address } from "@ton/ton";
 
-export async function getTop5APRByPosition(forAllTime: boolean = false) {
+export async function getTop5PoolsByPositionsAPR(forAllTime: boolean = false) {
     console.log(`Processing ${forAllTime ? "all" : "new (last 7 days)"} positions...`);
     try {
         const { data } = await infoClient.query<AllPositionsQuery>({
             query: ALL_POSITIONS,
         });
 
-        if (!data.positions) return;
+        const { data: mintDatas } = await infoClient.query<GetMintsQuery>({
+            query: MINT_TRANSACTIONS,
+        });
+
+        if (!data.positions || !mintDatas.mints) return;
         const positions = data.positions.filter(isDefined);
+        const mints = mintDatas.mints.filter(isDefined);
 
         const activePositions = positions.filter((position) => BigInt(position.liquidity) > BigInt(0));
         const newlyPositions = activePositions.filter(
@@ -25,7 +32,7 @@ export async function getTop5APRByPosition(forAllTime: boolean = false) {
 
         console.log("Total positions:", positions.length);
         console.log("Active positions:", activePositions.length);
-        console.log("Newly positions (created in the last 7 days):", newlyPositions.length);
+        console.log("New positions (created in the last 7 days):", newlyPositions.length);
 
         const positionsWithFees = [];
 
@@ -48,6 +55,15 @@ export async function getTop5APRByPosition(forAllTime: boolean = false) {
             if (totalFeesUsd === 0 && totalCollectedFeesUsd === 0) continue;
 
             const activeDays = (Date.now() - new Date(position.creationTime).getTime()) / (24 * 60 * 60 * 1000);
+
+            const initialAmountUsd = mints.find((m) => {
+                return new Date(m.time).getTime() === new Date(position.creationTime).getTime();
+            })?.amountUsd;
+
+            const currentAmountUsd = totalAmountUsd + totalFeesUsd + totalCollectedFeesUsd;
+
+            const pnl = initialAmountUsd ? currentAmountUsd - Number(initialAmountUsd) : 0;
+            const roi = (pnl / Number(initialAmountUsd)) * 100;
 
             const apr = totalAmountUsd > 0 ? ((totalFeesUsd + totalCollectedFeesUsd) / activeDays / totalAmountUsd) * 365 * 100 : 0;
 
@@ -72,22 +88,42 @@ export async function getTop5APRByPosition(forAllTime: boolean = false) {
                 priceUpper,
                 poolName,
                 activeDays,
+                initialAmountUsd,
+                pnl,
+                roi,
             });
         }
 
         console.log("Processed positions (liquidity > $100 and fees > $0):", positionsWithFees.length);
-        const topPositions = positionsWithFees.sort((a, b) => b.apr - a.apr).slice(0, 5);
+        const usedPools = new Set<string>();
+        const topPositions = positionsWithFees
+            .sort((a, b) => b.apr - a.apr)
+            .map((position) => {
+                if (usedPools.has(position.pool)) return null;
+                usedPools.add(position.pool);
+                return position;
+            })
+            .filter(isDefined)
+            .slice(0, 5);
 
-        console.log("Top 5 positions by APR:");
+        console.log("Top 5 pools by positions APR:");
         topPositions.forEach((position, index) => {
             console.log(`#${index + 1}:`);
             console.log(`  Pool: ${position.poolName}`);
             console.log(`  Position ID: ${position.id.split(":")[0]}`);
-            console.log(`  APR: ${position.apr.toFixed(2)}%`);
+            console.log(`  Initial Liquidity (USD): ${Number(position.initialAmountUsd || 0).toFixed(2)}`);
             console.log(`  Liquidity (USD): ${position.totalAmountUsd.toFixed(2)}`);
             console.log(`  Earned Fees (USD): ${position.totalFeesUsd.toFixed(2)}`);
             console.log(`  Collected Fees (USD): ${position.totalCollectedFeesUsd.toFixed(2)}`);
             console.log(`  Range: [${position.priceLower.toFixed(4)}] - [${position.priceUpper.toFixed(4)}]`);
+            console.log(`  Created at: ${new Date(position.creationTime).toLocaleString()}`);
+            console.log(`  Owner: ${Address.parse(position.owner).toString({ bounceable: false })}`);
+            console.log(" ");
+            console.log(`  APR: ${position.apr.toFixed(2)}%`);
+            console.log(
+                `  PnL (USD): ${position.pnl > 0 ? "+" : "-"}$${formatAmount(position.pnl.toString().split("-")[1] || position.pnl)}`
+            );
+            console.log(`  ROI: ${position.roi > 0 ? "+" : "-"}${formatAmount(position.roi.toString().split("-")[1] || position.roi)}%`);
             console.log(
                 `  Active in: ${
                     position.activeDays * 24 > 24
@@ -97,8 +133,7 @@ export async function getTop5APRByPosition(forAllTime: boolean = false) {
                         : `${(position.activeDays * 24).toFixed(0)} hours`
                 }`
             );
-            console.log(`  Created at: ${new Date(position.creationTime).toLocaleString()}`);
-            console.log(`  Owner: ${Address.parse(position.owner).toString({ bounceable: false })}`);
+            console.log(" ");
         });
 
         return topPositions;

@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client/core";
 
 export const MINT_TRANSACTIONS = gql`
-    query GetMints($where: MintWhere) {
-        mints(where: $where) {
+    query GetMints($where: MintWhere, $filter: Filter) {
+        mints(where: $where, filter: $filter) {
             hash
             time
             pool {
@@ -26,13 +26,14 @@ export const MINT_TRANSACTIONS = gql`
             wallet: recipient
             tickLower
             tickUpper
+            amountUsd
         }
     }
 `;
 
 export const SWAP_TRANSACTIONS = gql`
-    query GetSwaps($where: SwapWhere) {
-        swaps(where: $where) {
+    query GetSwaps($where: SwapWhere, $filter: Filter) {
+        swaps(where: $where, filter: $filter) {
             toRefund1
             toRefund0
             to
@@ -44,11 +45,13 @@ export const SWAP_TRANSACTIONS = gql`
                     address
                     symbol
                     decimals
+                    derivedUsd
                 }
                 jetton1 {
                     address
                     symbol
                     decimals
+                    derivedUsd
                 }
             }
             hash
@@ -59,8 +62,8 @@ export const SWAP_TRANSACTIONS = gql`
 `;
 
 export const BURN_TRANSACTIONS = gql`
-    query GetBurns($where: BurnWhere) {
-        burns(where: $where) {
+    query GetBurns($where: BurnWhere, $filter: Filter) {
+        burns(where: $where, filter: $filter) {
             time
             tickUpper
             tickLower
@@ -91,8 +94,8 @@ export const BURN_TRANSACTIONS = gql`
 `;
 
 export const COLLECT_TRANSACTIONS = gql`
-    query GetCollects($where: CollectWhere) {
-        collects(where: $where) {
+    query GetCollects($where: CollectWhere, $filter: Filter) {
+        collects(where: $where, filter: $filter) {
             time
             wallet: recipient
             positionId
