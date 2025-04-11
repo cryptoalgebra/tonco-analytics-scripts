@@ -1,0 +1,7 @@
+node_modules
+graphql/generated
+
+/data/*.json
+!/data/.gitkeep
+
+.env
